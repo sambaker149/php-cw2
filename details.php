@@ -6,13 +6,15 @@ include("_includes/functions.inc");
 
 
 // check logged in
-if (isset($_SESSION['id'])) {
+if (isset($_SESSION['id'])) 
+{
 
    echo template("templates/partials/header.php");
    echo template("templates/partials/nav.php");
 
    // if the form has been submitted
-   if (isset($_POST['submit'])) {
+   if (isset($_POST['submit'])) 
+   {
 
       // build an sql statment to update the student details
       $sql = "update student set firstname ='" . $_POST['txtfirstname'] . "',";
@@ -28,7 +30,8 @@ if (isset($_SESSION['id'])) {
       $data['content'] = "<p>Your details have been updated</p>";
 
    }
-   else {
+   else 
+   {
       // Build a SQL statment to return the student record with the id that
       // matches that of the session variable.
       $sql = "select * from student where studentid='". $_SESSION['id'] . "';";
@@ -60,16 +63,16 @@ if (isset($_SESSION['id'])) {
    </form>
 
 EOD;
-
    }
 
    // render the template
    echo template("templates/default.php", $data);
 
-} else {
+} 
+else 
+{
    header("Location: index.php");
 }
 
 echo template("templates/partials/footer.php");
-
 ?>
