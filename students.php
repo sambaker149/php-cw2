@@ -3,9 +3,8 @@
     include("_includes/dbconnect.inc");
     include("_includes/functions.inc");
 
-   // check logged in
-    if (isset($_SESSION['id'])) 
-    {
+   // check if logged in
+    if (isset($_SESSION['id'])) {
 
         echo template("templates/partials/header.php");
         echo template("templates/partials/nav.php");
@@ -15,23 +14,22 @@
 
         $result = mysqli_query($conn,$sql);
 
-      // Create form
+      // Create a form
         $data['content'] .= "<form action='deletestudents.php' method='POST'>";
 
       // Prepare page content
         $data['content'] .= "<table border='1'>";
 
-      // Display the table headings  
+      // Display table headings  
         $data['content'] .= "<tr><th>Student ID</th><th>First Name</th>
                             <th>Last Name</th><th>DOB</th>
                             <th>House</th><th>Town</th>
                             <th>County</th><th>Country</th>
-                            <th>Postcode</th></tr>";
+                            <th>Postcode</th><th>Profile Image</th></tr>";
 
-      // Display the modules within the html table
-        while($row = mysqli_fetch_array($result)) 
-        {
-            $data['content'] .= "<tr>";
+      // Display students within the html table
+        while($row = mysqli_fetch_array($result)) {
+        $data['content'] .= "<tr>";
             $data['content'] .= "<td> {$row["studentid"]} </td>";
             $data['content'] .= "<td> {$row["firstname"]} </td>";
             $data['content'] .= "<td> {$row["lastname"]} </td>";
@@ -41,6 +39,7 @@
             $data['content'] .= "<td> {$row["county"]} </td>";
             $data['content'] .= "<td> {$row["country"]} </td>";
             $data['content'] .= "<td> {$row["postcode"]} </td>";
+            $data['content'] .= "<td> {$row["profile_picture"]} </td>";
             $data['content'] .= "<td> <input type='checkbox' name='students[]' value='$row[studentid]' ></td>";
             $data['content'] .= "</tr>";
         }
@@ -54,12 +53,10 @@
 
       // render template
         echo template("templates/default.php", $data);
-
     } 
     else 
     {
         header("Location: index.php");
     }
-
     echo template("templates/partials/footer.php");
 ?>
