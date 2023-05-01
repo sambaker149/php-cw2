@@ -17,7 +17,7 @@
 
       // Prepare page content
       $data['content'] .= "<table class='table table-bordered border-dark'>";
-      $data['content'] .= "<tr><th colspan='5' align='center'>Modules</th></tr>";
+      $data['content'] .= "<tr><th colspan='5' align='center'><h2>Modules</h2></th></tr>";
       $data['content'] .= "<tr><th>Module Code</th>
                            <th>Module Name</th>
                            <th>Module Level</th></tr>";

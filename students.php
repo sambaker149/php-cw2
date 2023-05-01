@@ -23,7 +23,7 @@
         $data['content'] .= "<table class='table table-bordered border-dark'>";
 
       // Display table headings  
-        $data['content'] .= "<tr><th colspan='5' align='center'>Students</th></tr>";
+        $data['content'] .= "<tr><th colspan='5' align='center'><h2>Students</h2></th></tr>";
         $data['content'] .= "<tr><th>Student ID</th><th>First Name</th>
                             <th>Last Name</th><th>DOB</th>
                             <th>House</th><th>Town</th>
