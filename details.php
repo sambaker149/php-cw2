@@ -1,22 +1,21 @@
 <?php
-
 include("_includes/config.inc");
 include("_includes/dbconnect.inc");
 include("_includes/functions.inc");
 
 
-// check logged in
+// Check if logged in
 if (isset($_SESSION['id'])) 
 {
 
    echo template("templates/partials/header.php");
    echo template("templates/partials/nav.php");
 
-   // if the form has been submitted
+   // Check if form has been submitted
    if (isset($_POST['submit'])) 
    {
 
-      // build an sql statment to update the student details
+      // SQL statement to update student details
       $sql = "update student set firstname ='" . $_POST['txtfirstname'] . "',";
       $sql .= "lastname ='" . $_POST['txtlastname']  . "',";
       $sql .= "house ='" . $_POST['txthouse']  . "',";
@@ -32,7 +31,7 @@ if (isset($_SESSION['id']))
    }
    else 
    {
-      // Build a SQL statment to return the student record with the id that
+      // SQL statment to return student record with ID that
       // matches that of the session variable.
       $sql = "select * from student where studentid='". $_SESSION['id'] . "';";
       $result = mysqli_query($conn,$sql);
@@ -42,30 +41,39 @@ if (isset($_SESSION['id']))
       // see http://stackoverflow.com/questions/6924193/what-is-the-use-of-eod-in-php for info
       // also http://stackoverflow.com/questions/8280360/formatting-an-array-value-inside-a-heredoc
       $data['content'] = <<<EOD
-
+   <div class="container">
+   <div class="card">
+   <div class="card-header">
    <h2>My Details</h2>
+   </div>
+   <div class="card-body">
    <form name="frmdetails" action="" method="post">
-   First Name :
-   <input name="txtfirstname" type="text" value="{$row['firstname']}" /><br/>
-   Surname :
-   <input name="txtlastname" type="text"  value="{$row['lastname']}" /><br/>
-   Number and Street :
-   <input name="txthouse" type="text"  value="{$row['house']}" /><br/>
-   Town :
-   <input name="txttown" type="text"  value="{$row['town']}" /><br/>
-   County :
-   <input name="txtcounty" type="text"  value="{$row['county']}" /><br/>
-   Country :
-   <input name="txtcountry" type="text"  value="{$row['country']}" /><br/>
-   Postcode :
-   <input name="txtpostcode" type="text"  value="{$row['postcode']}" /><br/>
-   <input type="submit" value="Save" name="submit"/>
+   First Name:
+   <input name="txtfirstname" type="text" class="form-control" value="{$row['firstname']}" />
+   Surname:
+   <input name="txtlastname" type="text" class="form-control" value="{$row['lastname']}" />
+   Number and Street:
+   <input name="txthouse" type="text" class="form-control" value="{$row['house']}" />
+   Town:
+   <input name="txttown" type="text" class="form-control" value="{$row['town']}" />
+   County:
+   <input name="txtcounty" type="text" class="form-control" value="{$row['county']}" />
+   Country:
+   <input name="txtcountry" type="text" class="form-control" value="{$row['country']}" />
+   Postcode:
+   <input name="txtpostcode" type="text" class="form-control" value="{$row['postcode']}" />
+   </div>
+   <div class="card-footer">
+   <input type="submit" value="Save" class="btn btn-outline-primary mb-3 mt-3" name="submit"/>
+   </div>
    </form>
-
+   </div>
+   </div>
 EOD;
+
    }
 
-   // render the template
+   // Render template
    echo template("templates/default.php", $data);
 
 } 
