@@ -62,9 +62,10 @@ if (isset($_SESSION['id']))
    <input name="txtcountry" type="text" class="form-control" value="{$row['country']}" />
    Postcode:
    <input name="txtpostcode" type="text" class="form-control" value="{$row['postcode']}" />
-   </div>
-   <div class="card-footer">
-   <input type="submit" value="Save" class="btn btn-outline-primary mb-3 mt-3" name="submit"/>
+   Profile Picture :
+   <input name="profile_picture" type="file" Value="" class="form-control mb-2" /><br/>
+   <div class="card-footer">  
+   <input type="submit" value="Save" name="submit" class="btn btn-outline-primary mb-3 mt-3"/>
    </div>
    </form>
    </div>
