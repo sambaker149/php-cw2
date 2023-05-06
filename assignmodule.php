@@ -24,13 +24,13 @@ if (isset($_SESSION['id']))
 
      $data['content'] .= "<form class='form-control' name='frmassignmodule' action='' method='post' >";
      $data['content'] .= "<h2>Select Module To Assign</h2><br/>";
-     $data['content'] .= "<select name='selmodule'>";
+     $data['content'] .= "<select class='form-control mb-2' name='selmodule' >";
      // Display module names in drop down selection box
      while($row = mysqli_fetch_array($result)) 
      {
         $data['content'] .= "<option value='$row[modulecode]'>$row[name]</option>";
      }
-     $data['content'] .= "</select><br><br/>";
+     $data['content'] .= "</select>";
      $data['content'] .= "<input type='submit' name='confirm' class='btn btn-outline-primary mb-3 mt-3' value='Assign Module' />";
      $data['content'] .= "</form>";
    }

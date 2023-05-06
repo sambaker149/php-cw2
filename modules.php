@@ -38,6 +38,7 @@
 
       // Render template
       echo template("templates/default.php", $data);
+      echo template("templates/partials/footer.php");
 
    } 
    else 
@@ -47,5 +48,5 @@
 
    echo "</div></div></div></div></div></div></div></div>";
 
-   echo template("templates/partials/footer.php");
+   
 ?>
