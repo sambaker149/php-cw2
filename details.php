@@ -14,20 +14,27 @@ if (isset($_SESSION['id']))
    // Check if form has been submitted
    if (isset($_POST['submit'])) 
    {
-
       // SQL statement to update student details
-      $sql = "update student set firstname ='" . $_POST['txtfirstname'] . "',";
-      $sql .= "lastname ='" . $_POST['txtlastname']  . "',";
-      $sql .= "house ='" . $_POST['txthouse']  . "',";
-      $sql .= "town ='" . $_POST['txttown']  . "',";
-      $sql .= "county ='" . $_POST['txtcounty']  . "',";
-      $sql .= "country ='" . $_POST['txtcountry']  . "',";
-      $sql .= "postcode ='" . $_POST['txtpostcode']  . "' ";
+      $sql = "update student set firstname ='" . mysqli_real_escape_string($conn, $_POST['txtfirstname']) . "',";
+      $sql .= "lastname ='" . mysqli_real_escape_string($conn, $_POST['txtlastname'])  . "',";
+      $sql .= "house ='" . mysqli_real_escape_string($conn, $_POST['txthouse'])  . "',";
+      $sql .= "town ='" . mysqli_real_escape_string($conn, $_POST['txttown'])  . "',";
+      $sql .= "county ='" . mysqli_real_escape_string($conn, $_POST['txtcounty'])  . "',";
+      $sql .= "country ='" . mysqli_real_escape_string($conn, $_POST['txtcountry'])  . "',";
+      $sql .= "postcode ='" . mysqli_real_escape_string($conn, $_POST['txtpostcode'])  . "',";
+      $sql .= "photo = NULL ";
       $sql .= "where studentid = '" . $_SESSION['id'] . "';";
       $result = mysqli_query($conn,$sql);
 
-      $data['content'] = "<p>Your details have been updated</p>";
+      if(!empty($_FILES['photo']['tmp_name']))
+      {
+         $photo = $_FILES["photo"]["tmp_name"]; 
+         $imagedata = addslashes(fread(fopen($photo, "r"), filesize($photo)));
+         $sql1 = "update student set photo = '" . $imagedata ."' where studentid = '" . $_SESSION['id'] . "';";
+         $result = mysqli_query($conn,$sql1);
+      }
 
+      $data['content'] = "<h3 class='fw-bold text-primary'>Your details have been updated</h3>";
    }
    else 
    {
@@ -36,6 +43,9 @@ if (isset($_SESSION['id']))
       $sql = "select * from student where studentid='". $_SESSION['id'] . "';";
       $result = mysqli_query($conn,$sql);
       $row = mysqli_fetch_array($result);
+
+      if(!empty($row['photo']))
+         echo "<img src='templates/getimage.php?id=" . $_SESSION['id'] . "' height='150'</td>";
 
       // using <<<EOD notation to allow building of a multi-line string
       // see http://stackoverflow.com/questions/6924193/what-is-the-use-of-eod-in-php for info
@@ -76,7 +86,6 @@ EOD;
 
    // Render template
    echo template("templates/default.php", $data);
-
 } 
 else 
 {

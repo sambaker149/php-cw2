@@ -17,7 +17,9 @@
       {
          // valid
          header("Location: index.php?return=success");
-      } else {
+      } 
+      else 
+      {
          // invalid
          unset($_SESSION['id']);
          header("Location: index.php?return=fail");

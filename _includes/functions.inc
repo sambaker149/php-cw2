@@ -1,6 +1,7 @@
 <?php
 
 include "passwordLib.php";
+include "student.php";
 
 /**
  * Validate Login function
@@ -9,7 +10,8 @@ include "passwordLib.php";
  * @param $password  - plaintext password
  * @return boolean   - returns true or false depending on successful authentication of user.
  */
-function validatelogin($id,$password) {
+function validatelogin($id,$password) 
+{
    global $conn;
    // Build an SQL statment that will return a record with a matching id
    $sql = "select * from student where studentid='$id';";
@@ -20,11 +22,13 @@ function validatelogin($id,$password) {
 
 	// use PHP's verify_password function to check whether the stored
 	// hash matches the given password
-	if (password_verify($password, $studentdetails['password'])) {
+	if (password_verify($password, $studentdetails['password'])) 
+   {
 		$_SESSION['id'] = $id;
 		return true;
 	}
-	else {
+	else 
+   {
 		$_SESSION['id'] = '';
 		return false;
 	}
@@ -40,14 +44,17 @@ function validatelogin($id,$password) {
  *
  * Source: http://www.daggerhart.com/create-simple-php-templating-function/
  */
-function template( $file, $args=array() ){
+function template( $file, $args=array() )
+{
    // ensure the file exists
-   if ( !file_exists( $file ) ) {
+   if ( !file_exists( $file ) ) 
+   {
       return '';
    }
 
    // Make values in the associative array easier to access by extracting them
-   if ( is_array( $args ) ){
+   if ( is_array( $args ) )
+   {
       extract( $args );
    }
 
@@ -57,4 +64,17 @@ function template( $file, $args=array() ){
    return ob_get_clean();
 }
 
+/**
+ * Creates student object according to result fetched from database
+ */
+function createStudent($row)
+{
+   $student = new Student();
+   $student->set_name($row['firstname'] . " " . $row['lastname']); 
+   $student->set_id($row['studentid']);
+   $student->set_dob($row['dob']);
+   $student->set_address($row['house'] . ", " . $row['town'] . ", " . $row['county'] . ", " . $row['postcode'] . ", " . $row['country']);
+
+   return $student;
+}
 ?>

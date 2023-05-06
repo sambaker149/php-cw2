@@ -2,6 +2,10 @@
    include("_includes/config.inc");
    include("_includes/dbconnect.inc");
    include("_includes/functions.inc");
+   include("seed.php");
+
+   // Seed DB
+   seedDatabase();
 
    echo template("templates/partials/header.php");
 
