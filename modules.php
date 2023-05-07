@@ -31,6 +31,8 @@
       if(mysqli_num_rows($result) == 0)
       {
          $data['content'] .= "<h3 class='fw-bold text-danger'>No Modules Assigned</h3>";
+         $data['content'] .= "<input type='button' class='btn btn-outline-primary' value='Assign Module' 
+                              onclick='window.location.href=\"assignmodule.php\"'><br/>";
       }
 
       // Close form  
@@ -47,6 +49,4 @@
    }
 
    echo "</div></div></div></div></div></div></div></div>";
-
-   
 ?>

@@ -27,7 +27,7 @@
     while($row = mysqli_fetch_assoc($result))
     {
       $student = createStudent($row);
-      if($row['photo'] != null)
+      if($row['profile_picture'] != null)
       {
         echo "<tbody><tr></td><td>" . $student->name ."</td><td>" . $student->id . "</td><td>" 
         . $student->dob . "</td><td>" . $student->address . "</td><td><img src='templates/getimage.php?id=" . $student->id . "' height='100'</td>
@@ -47,7 +47,6 @@
 
     // Close form  
     echo "</form></div>";
-    echo "</div></div></div></div></div></div>";
   }
 
   // Render template
